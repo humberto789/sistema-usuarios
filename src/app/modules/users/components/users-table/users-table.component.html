@@ -1,0 +1,108 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card
+      styleClass="shadow-3 m-5 text-indigo-800"
+      header="Usuários"
+    >
+    <p-table
+      #usersTable
+      [value]="users"
+      [rows]="10"
+      [paginator]="true"
+      [responsive]="true"
+      [globalFilterFields]="['pessoa.nome', 'email']"
+      [tableStyle]="{'min-width': '75rem'}"
+      [(selection)]="userSelected"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} usuários"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="pessoa.nome">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Nome
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon field="pessoa.nome"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="pessoa.nome"
+                  display="menu"
+                  matchMode="contains"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+
+          <th pSortableColumn="email">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Email
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon field="email"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="email"
+                  display="menu"
+                  matchMode="contains"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+
+          <th>
+            <div class="flex justify-content-center">
+              <p-button
+                styleClass="p-button-info"
+                icon="pi pi-plus"
+                label="Adicionar"
+                pTooltip="Adicionar Usuário"
+                tooltipPosition="top"
+                (onClick)="handleUserEvent(addUserEvent)"
+              ></p-button>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user?.pessoa.nome}}</td>
+          <td>{{user?.email}}</td>
+          <td>
+            <div class="flex justify-content-center gap-3 align-content-center align-items-center">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-warning"
+                pTooltip="Editar usuário"
+                tooltipPosition="top"
+                (click)="handleUserEvent(editUserEvent, user?.id)"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger"
+                pTooltip="Remover usuário"
+                tooltipPosition="top"
+                (click)="handleDeleteUser(user?.id, user?.pessoa.nome)"
+              ></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+  </div>
+</div>

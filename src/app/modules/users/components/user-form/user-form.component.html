@@ -1,0 +1,63 @@
+<div *ngIf="userAction?.event?.action === addUserAction">
+  <form [formGroup]="addUserForm" (ngSubmit)="handleSubmitAddUser()">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <input
+        pInputText
+        placeholder="Nome"
+        formControlName="nome" />
+
+      <input
+        type="password"
+        pInputText
+        placeholder="Senha"
+        formControlName="senha" />
+
+      <input
+        pInputText
+        placeholder="Email"
+        formControlName="email" />
+
+      <p-dropdown
+        styleClass="w-full"
+        [options]="rolesDatas"
+        [(ngModel)]="selectedRole"
+        optionLabel="descricao"
+        optionValue="id"
+        placeholder="Selecione um papel"
+        formControlName="papelId"
+      ></p-dropdown>
+
+      <div class="flex flex-row justify-content-center align-content-center m-1">
+        <p-button
+          [disabled]="!addUserForm.valid"
+          type="submit"
+          label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="userAction?.event?.action === editUserAction">
+  <form [formGroup]="editUserForm" (ngSubmit)="handleSubmitEditUser()">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <input
+        pInputText
+        placeholder="Nome"
+        formControlName="nome" />
+
+      <input
+        pInputText
+        placeholder="Email"
+        formControlName="email" />
+
+      <div class="flex flex-row justify-content-center align-content-center m-1">
+        <p-button
+          [disabled]="!editUserForm.valid"
+          type="submit"
+          label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>
